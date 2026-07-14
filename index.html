@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plane Crash - Betting Game</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- HEADER -->
+    <header class="topbar">
+        <div class="logo">✈ Plane Crash</div>
+        <div class="balance-box">
+            Balance
+            <span id="balance">1000.00</span>
+            <button id="soundBtn" class="icon-btn" title="Sound On">🔊</button>
+            <button id="resetBtn" class="icon-btn reset-btn" title="Reset Game">🗑</button>
+        </div>
+    </header>
+
+    <!-- HISTORY -->
+    <div class="history-wrap">
+        <button id="histLeft" class="hist-arrow" title="Previous">◀</button>
+        <section class="history-bar" id="historyBar"></section>
+        <button id="histRight" class="hist-arrow" title="Next">▶</button>
+    </div>
+
+    <!-- MAIN: GAME + CONTROLS LEFT | STATS + PLAYERS RIGHT -->
+    <div class="main-content">
+
+        <!-- LEFT: Game board + Control buttons -->
+        <div class="left-column">
+
+            <div class="game-board">
+                <canvas id="graphCanvas"></canvas>
+                <div id="plane">
+                    <svg viewBox="0 0 120 60" width="90" height="45" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#60a5fa"/>
+                                <stop offset="100%" stop-color="#2563eb"/>
+                            </linearGradient>
+                            <linearGradient id="wingGrad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#f97316"/>
+                                <stop offset="100%" stop-color="#c2410c"/>
+                            </linearGradient>
+                            <linearGradient id="tailGrad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#ef4444"/>
+                                <stop offset="100%" stop-color="#991b1b"/>
+                            </linearGradient>
+                            <filter id="glow">
+                                <feGaussianBlur stdDeviation="2" result="blur"/>
+                                <feMerge>
+                                    <feMergeNode in="blur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                            <filter id="shadow">
+                                <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000" flood-opacity=".3"/>
+                            </filter>
+                        </defs>
+                        <!-- trail -->
+                        <ellipse cx="18" cy="32" rx="16" ry="3" fill="rgba(255,255,255,0.15)"/>
+                        <!-- body -->
+                        <ellipse cx="60" cy="30" rx="38" ry="10" fill="url(#bodyGrad)" filter="url(#shadow)"/>
+                        <!-- body shine -->
+                        <ellipse cx="58" cy="27" rx="30" ry="4" fill="rgba(255,255,255,0.2)"/>
+                        <!-- nose -->
+                        <ellipse cx="97" cy="30" rx="8" ry="7" fill="#facc15" filter="url(#glow)"/>
+                        <ellipse cx="99" cy="29" rx="4" ry="3" fill="rgba(255,255,255,0.4)"/>
+                        <!-- cockpit window -->
+                        <ellipse cx="88" cy="27" rx="6" ry="4" fill="#1e3a5f" stroke="#93c5fd" stroke-width="1"/>
+                        <ellipse cx="89" cy="26" rx="3" ry="2" fill="rgba(147,197,253,0.5)"/>
+                        <!-- top wing -->
+                        <path d="M45,30 L55,8 L75,8 L72,30Z" fill="url(#wingGrad)" filter="url(#shadow)"/>
+                        <path d="M48,28 L56,12 L72,12 L70,28Z" fill="rgba(255,255,255,0.15)"/>
+                        <!-- bottom wing -->
+                        <path d="M45,30 L55,52 L75,52 L72,30Z" fill="url(#wingGrad)" opacity=".8"/>
+                        <!-- tail vertical -->
+                        <path d="M22,30 L18,12 L30,12 L32,30Z" fill="url(#tailGrad)" filter="url(#shadow)"/>
+                        <!-- tail horizontal -->
+                        <path d="M20,30 L12,22 L28,22 L30,30Z" fill="url(#tailGrad)" opacity=".7"/>
+                        <!-- engine -->
+                        <rect x="40" y="36" width="14" height="6" rx="3" fill="#475569"/>
+                        <rect x="41" y="37" width="12" height="4" rx="2" fill="#64748b"/>
+                        <!-- windows -->
+                        <circle cx="60" cy="28" r="2" fill="#1e3a5f" stroke="#93c5fd" stroke-width=".5"/>
+                        <circle cx="66" cy="28" r="2" fill="#1e3a5f" stroke="#93c5fd" stroke-width=".5"/>
+                        <circle cx="72" cy="28" r="2" fill="#1e3a5f" stroke="#93c5fd" stroke-width=".5"/>
+                        <circle cx="78" cy="28" r="2" fill="#1e3a5f" stroke="#93c5fd" stroke-width=".5"/>
+                    </svg>
+                </div>
+                <div id="multiplier">1.00x</div>
+                <div id="gameStatus">Waiting...</div>
+            </div>
+
+            <div class="controls-row">
+                <div class="left-panel">
+                    <div class="input-group">
+                        <label>Bet Amount</label>
+                        <input id="betAmount" type="number" value="100" min="10">
+                    </div>
+                    <div class="bet-row">
+                        <button id="halfBtn" class="quick-btn">½</button>
+                        <button id="doubleBtn" class="quick-btn">2x</button>
+                        <button id="maxBtn" class="quick-btn">MAX</button>
+                    </div>
+                    <div class="action-row">
+                        <button id="betBtn" class="action-btn bet">Place Bet</button>
+                        <button id="cancelBtn" class="action-btn cancel" style="display:none">Cancel Bet</button>
+                        <button id="cashoutBtn" class="action-btn cashout" disabled>Cash Out</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT: Stats + Live Players -->
+        <div class="right-column">
+
+            <div class="stats">
+                <div class="card">
+                    <h4>Current Bet</h4>
+                    <p id="currentBet">0</p>
+                </div>
+                <div class="card">
+                    <h4>Profit</h4>
+                    <p id="profit">0</p>
+                </div>
+                <div class="card">
+                    <h4>Last Crash</h4>
+                    <p id="lastCrash">0x</p>
+                </div>
+            </div>
+
+            <div class="players-section">
+                <div class="players-header">Live Players</div>
+                <div class="players-list" id="playersList"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="js/utils.js"></script>
+<script src="js/sound.js"></script>
+<script src="js/history.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/animation.js"></script>
+<script src="js/game.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+
+</html>

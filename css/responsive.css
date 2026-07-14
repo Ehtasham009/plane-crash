@@ -1,0 +1,174 @@
+/* ===========================================
+   RESPONSIVE
+========================================== */
+
+/* Tablets */
+@media (max-width: 1024px) {
+
+    .main-content{
+        flex-direction:column;
+    }
+
+    .right-column{
+        width:100%;
+        flex-direction:row;
+        gap:8px;
+        max-height:120px;
+    }
+
+    .stats{
+        flex:0 0 300px;
+    }
+
+    .players-section{
+        flex:1;
+    }
+
+    .players-list{
+        flex-direction:row;
+        flex-wrap:nowrap;
+        overflow-x:auto;
+    }
+
+    .player{
+        min-width:180px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+    .app{
+        padding:8px;
+        gap:6px;
+    }
+
+    .topbar{
+        gap:8px;
+    }
+
+    .logo{
+        font-size:18px;
+    }
+
+    .balance-box{
+        font-size:13px;
+        padding:6px 12px;
+    }
+
+    .history-item{
+        min-width:55px;
+        font-size:11px;
+        padding:4px 6px;
+    }
+
+    #multiplier{
+        font-size:36px;
+        top:10px;
+    }
+
+    #plane{
+        transform:scale(.65);
+        left:30px;
+        bottom:40px;
+    }
+
+    #gameStatus{
+        font-size:11px;
+        padding:4px 12px;
+    }
+
+    .left-panel{
+        width:200px;
+        padding:8px;
+    }
+
+    .input-group input{
+        height:34px;
+        font-size:16px;
+    }
+
+    .action-btn{
+        height:36px;
+        font-size:13px;
+    }
+
+    .card{
+        padding:8px 4px;
+    }
+
+    .card h4{
+        font-size:10px;
+        margin-bottom:4px;
+    }
+
+    .card p{
+        font-size:16px;
+    }
+
+    .right-column{
+        max-height:100px;
+    }
+
+    .countdown{
+        font-size:50px;
+    }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+
+    .main-content{
+        flex-direction:column;
+    }
+
+    .right-column{
+        flex-direction:column;
+        max-height:none;
+        gap:6px;
+    }
+
+    .stats{
+        grid-template-columns:repeat(3,1fr);
+        flex:none;
+    }
+
+    .players-section{
+        max-height:100px;
+    }
+
+    .players-list{
+        flex-direction:row;
+        flex-wrap:nowrap;
+        overflow-x:auto;
+    }
+
+    .player{
+        min-width:150px;
+    }
+
+    .left-panel{
+        width:100%;
+        flex-direction:row;
+        flex-wrap:wrap;
+        gap:6px;
+    }
+
+    .input-group{
+        flex:1;
+        min-width:120px;
+    }
+
+    .bet-row{
+        flex:0 0 auto;
+    }
+
+    .action-row{
+        width:100%;
+    }
+
+    .action-btn{
+        flex:1;
+        min-width:80px;
+    }
+}

@@ -1,0 +1,706 @@
+/* ===========================================
+   RESET
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    overflow:hidden;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#0b1220;
+    color:#fff;
+    overflow:hidden;
+    height:100vh;
+    width:100vw;
+}
+
+/* ===========================================
+   VARIABLES
+========================================== */
+
+:root{
+    --bg:#0b1220;
+    --panel:#141d2d;
+    --panel2:#1b2538;
+    --border:#293548;
+    --green:#16c784;
+    --red:#ea3943;
+    --blue:#3b82f6;
+    --yellow:#ffb800;
+    --text:#ffffff;
+    --text2:#a7b4c7;
+    --radius:12px;
+}
+
+/* ===========================================
+   APP - FULL VIEWPORT
+========================================== */
+
+.app{
+    display:flex;
+    flex-direction:column;
+    height:100vh;
+    width:100vw;
+    padding:10px 16px;
+    gap:8px;
+    overflow:hidden;
+}
+
+/* ===========================================
+   TOPBAR
+========================================== */
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-shrink:0;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:bold;
+    color:white;
+    letter-spacing:1px;
+}
+
+.balance-box{
+    background:var(--panel);
+    border:1px solid var(--border);
+    padding:8px 16px;
+    border-radius:var(--radius);
+    font-size:15px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+#balance{
+    color:var(--green);
+    font-weight:bold;
+}
+
+.sound-btn{
+    width:32px;
+    height:32px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--panel2);
+    border:1px solid var(--border);
+    border-radius:8px;
+    font-size:15px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.sound-btn:hover{
+    background:var(--blue);
+    border-color:var(--blue);
+}
+
+.icon-btn{
+    width:32px;
+    height:32px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--panel2);
+    border:1px solid var(--border);
+    border-radius:8px;
+    font-size:15px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.icon-btn:hover{
+    background:var(--blue);
+    border-color:var(--blue);
+}
+
+.reset-btn:hover{
+    background:var(--red);
+    border-color:var(--red);
+}
+
+/* ===========================================
+   HISTORY BAR
+========================================== */
+
+.history-wrap{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    flex-shrink:0;
+}
+
+.hist-arrow{
+    width:30px;
+    height:30px;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:8px;
+    color:var(--text2);
+    font-size:12px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.hist-arrow:hover{
+    background:var(--blue);
+    color:white;
+    border-color:var(--blue);
+}
+
+.hist-arrow:active{
+    transform:scale(.9);
+}
+
+.history-bar{
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    flex:1;
+    min-width:0;
+    padding:4px 0;
+    scroll-behavior:smooth;
+}
+
+.history-bar::-webkit-scrollbar{
+    display:none;
+}
+
+.history-item{
+    min-width:72px;
+    text-align:center;
+    padding:6px 10px;
+    border-radius:8px;
+    font-weight:bold;
+    font-size:13px;
+    flex-shrink:0;
+    white-space:nowrap;
+}
+
+.history-item.green{
+    background:#0f2f27;
+    color:#3cffb1;
+}
+
+.history-item.red{
+    background:#3a161a;
+    color:#ff7d86;
+}
+
+.history-item.blue{
+    background:#0f1f3d;
+    color:#60a5fa;
+}
+
+/* ===========================================
+   MAIN CONTENT - FILLS REMAINING SPACE
+========================================== */
+
+.main-content{
+    display:flex;
+    gap:10px;
+    flex:1;
+    min-height:0;
+    overflow:hidden;
+}
+
+/* ===========================================
+   LEFT COLUMN - GAME + CONTROLS
+========================================== */
+
+.left-column{
+    display:flex;
+    flex-direction:column;
+    flex:1;
+    gap:8px;
+    min-width:0;
+}
+
+/* ===========================================
+   GAME AREA
+========================================== */
+
+.game-board{
+    position:relative;
+    flex:1;
+    min-height:0;
+    overflow:hidden;
+    border-radius:14px;
+    border:1px solid var(--border);
+    background:
+        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(180deg,#101827,#0b1220);
+    background-size:40px 40px,40px 40px,100% 100%;
+    box-shadow:0 0 50px rgba(0,0,0,.4), inset 0 0 30px rgba(255,255,255,.03);
+}
+
+.game-board::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+        radial-gradient(circle,#ffffff 1px,transparent 1px),
+        radial-gradient(circle,#ffffff 1px,transparent 1px),
+        radial-gradient(circle,#ffffff 1px,transparent 1px);
+    background-size:180px 180px,250px 250px,320px 320px;
+    opacity:.18;
+    animation:starsMove 35s linear infinite;
+}
+
+@keyframes starsMove{
+    from{ background-position:0 0,0 0,0 0; }
+    to{ background-position:-500px 200px,-700px 300px,-900px 500px; }
+}
+
+#graphCanvas{
+    width:100%;
+    height:100%;
+    display:block;
+}
+
+/* ===========================================
+   PLANE
+========================================== */
+
+#plane{
+    position:absolute;
+    left:70px;
+    bottom:70px;
+    z-index:10;
+    transition:.08s linear;
+    filter:drop-shadow(0 0 14px rgba(96,165,250,.6));
+}
+
+#plane svg{
+    display:block;
+}
+
+/* ===========================================
+   MULTIPLIER
+========================================== */
+
+#multiplier{
+    position:absolute;
+    top:15px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:52px;
+    font-weight:bold;
+    color:white;
+    text-shadow:0 0 20px rgba(255,255,255,.3);
+}
+
+/* ===========================================
+   STATUS
+========================================== */
+
+#gameStatus{
+    position:absolute;
+    bottom:12px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#00000066;
+    padding:6px 16px;
+    border-radius:20px;
+    color:var(--text2);
+    font-size:13px;
+    white-space:nowrap;
+}
+
+/* ===========================================
+   CONTROLS ROW
+========================================== */
+
+.controls-row{
+    display:flex;
+    gap:8px;
+    flex-shrink:0;
+}
+
+.left-panel{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:12px;
+    width:260px;
+    flex-shrink:0;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.input-group{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+}
+
+.input-group label{
+    color:var(--text2);
+    font-size:12px;
+}
+
+.input-group input{
+    width:100%;
+    height:40px;
+    border:none;
+    outline:none;
+    background:var(--panel2);
+    color:white;
+    font-size:18px;
+    padding:0 12px;
+    border-radius:8px;
+    border:1px solid var(--border);
+}
+
+.input-group input:focus{
+    border-color:var(--blue);
+}
+
+.bet-row{
+    display:flex;
+    gap:6px;
+}
+
+.quick-btn{
+    flex:1;
+    height:32px;
+    background:var(--panel2);
+    color:var(--text2);
+    border:1px solid var(--border);
+    border-radius:6px;
+    font-size:13px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+    width:auto;
+}
+
+.quick-btn:hover{
+    background:var(--blue);
+    color:white;
+    border-color:var(--blue);
+}
+
+button{
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.25s;
+}
+
+.action-row{
+    display:flex;
+    gap:6px;
+}
+
+.action-btn{
+    flex:1;
+    height:44px;
+    font-size:15px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.25s;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.action-btn.bet{
+    background:var(--green);
+    color:white;
+}
+
+.action-btn.bet:hover{
+    transform:translateY(-1px);
+    box-shadow:0 8px 20px rgba(22,199,132,.35);
+}
+
+.action-btn.cancel{
+    background:var(--red);
+    color:white;
+}
+
+.action-btn.cancel:hover{
+    transform:translateY(-1px);
+    box-shadow:0 8px 20px rgba(234,57,67,.35);
+}
+
+.action-btn.cashout{
+    background:var(--yellow);
+    color:#111;
+}
+
+.action-btn.cashout:hover:not(:disabled){
+    transform:translateY(-1px);
+    box-shadow:0 8px 20px rgba(255,184,0,.35);
+}
+
+button:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+}
+
+button:active{
+    transform:scale(.96);
+}
+
+/* ===========================================
+   RIGHT COLUMN - STATS + PLAYERS
+========================================== */
+
+.right-column{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    width:320px;
+    flex-shrink:0;
+    min-height:0;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:8px;
+}
+
+.card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:12px 8px;
+    text-align:center;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 20px rgba(0,0,0,.25);
+}
+
+.card h4{
+    color:var(--text2);
+    margin-bottom:6px;
+    font-size:11px;
+    font-weight:normal;
+}
+
+.card p{
+    font-size:22px;
+    font-weight:bold;
+}
+
+/* ===========================================
+   PLAYERS
+========================================== */
+
+.players-section{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:12px;
+    flex:1;
+    min-height:0;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+}
+
+.players-header{
+    font-size:16px;
+    font-weight:bold;
+    margin-bottom:8px;
+    flex-shrink:0;
+}
+
+.players-list{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    overflow-y:auto;
+    flex:1;
+    min-height:0;
+}
+
+.players-list::-webkit-scrollbar{
+    width:4px;
+}
+
+.players-list::-webkit-scrollbar-thumb{
+    background:#2f405b;
+    border-radius:20px;
+}
+
+.player{
+    background:var(--panel2);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:8px 12px;
+    transition:.25s;
+    flex-shrink:0;
+}
+
+.player:hover{
+    transform:translateY(-2px);
+    border-color:var(--green);
+}
+
+.player-name{
+    font-weight:bold;
+    font-size:13px;
+    margin-bottom:2px;
+}
+
+.player-bet{
+    color:var(--text2);
+    font-size:12px;
+    margin-bottom:2px;
+}
+
+.player-cash{
+    color:var(--green);
+    font-weight:bold;
+    font-size:12px;
+}
+
+.player.win{
+    border-color:#16c784;
+}
+
+.player.lose{
+    border-color:#ea3943;
+}
+
+/* ===========================================
+   MULTIPLIER COLORS
+========================================== */
+
+.multiplier-green{ color:#16c784 !important; }
+.multiplier-red{ color:#ff4d5b !important; }
+.multiplier-yellow{ color:#ffd43b !important; }
+
+/* ===========================================
+   POPUP
+========================================== */
+
+.popup{
+    position:fixed;
+    top:20px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#1d293d;
+    border:1px solid #2e405d;
+    padding:10px 22px;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:bold;
+    z-index:9999;
+    opacity:0;
+    pointer-events:none;
+    transition:.35s;
+    white-space:nowrap;
+}
+
+.popup.show{
+    opacity:1;
+}
+
+/* ===========================================
+   COUNTDOWN
+========================================== */
+
+.countdown{
+    position:absolute;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:70px;
+    font-weight:bold;
+    color:white;
+    background:rgba(0,0,0,.45);
+    backdrop-filter:blur(3px);
+    z-index:99;
+}
+
+/* ===========================================
+   ANIMATIONS
+========================================== */
+
+@keyframes shake{
+    0%{ transform:translateX(0); }
+    25%{ transform:translateX(-5px); }
+    50%{ transform:translateX(5px); }
+    75%{ transform:translateX(-5px); }
+    100%{ transform:translateX(0); }
+}
+
+.shake{ animation:shake .4s; }
+
+.win{ animation:winFlash .5s ease; }
+
+@keyframes winFlash{
+    0%{ box-shadow:0 0 0 rgba(0,255,0,0); }
+    50%{ box-shadow:0 0 60px rgba(22,199,132,.7); }
+    100%{ box-shadow:0 0 0 rgba(0,255,0,0); }
+}
+
+.lose{ animation:loseFlash .5s ease; }
+
+@keyframes loseFlash{
+    0%{ box-shadow:0 0 0 rgba(255,0,0,0); }
+    50%{ box-shadow:0 0 60px rgba(255,0,0,.6); }
+    100%{ box-shadow:0 0 0 rgba(255,0,0,0); }
+}
+
+.crash{ animation:crashFlash .4s; }
+
+@keyframes crashFlash{
+    0%{ background:#fff; }
+    100%{ background:transparent; }
+}
+
+.fade-in{ animation:fadeIn .4s; }
+
+@keyframes fadeIn{
+    from{ opacity:0; transform:translateY(6px); }
+    to{ opacity:1; transform:translateY(0); }
+}
+
+@keyframes glow{
+    0%{ text-shadow:0 0 10px rgba(255,255,255,.2); }
+    50%{ text-shadow:0 0 35px rgba(255,255,255,.9); }
+    100%{ text-shadow:0 0 10px rgba(255,255,255,.2); }
+}
+
+.glow{ animation:glow 1.2s infinite; }
+
+/* ===========================================
+   SCROLLBAR
+========================================== */
+
+::-webkit-scrollbar{ width:5px; height:5px; }
+::-webkit-scrollbar-thumb{ background:#2f405b; border-radius:20px; }
+::-webkit-scrollbar-track{ background:#111827; }
+
+::selection{ background:#3b82f6; color:white; }
