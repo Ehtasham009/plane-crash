@@ -46,7 +46,7 @@ const Game = {
         this.generatePlayers();
         UI.renderPlayers(this.players);
 
-        this.waitingCountdown(2);
+        this.waitingCountdown(5);
     },
 
     waitingCountdown(seconds) {
